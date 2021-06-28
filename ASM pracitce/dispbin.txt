@@ -1,0 +1,32 @@
+dispbin:
+	given a number in AX, store the corresponding bit string in str1.
+	for example, if AX = 0x1234, the result should be:
+	str1 = 0001001000110100
+======
+      str1 @ 0x600000-600014
+======
+mov ecx, 16
+mov ebx, 0x600000
+l1:
+    shl ax
+    jc is1
+    mov dl, 0x30
+    mov [ebx], dl
+    jmp l2
+is1:
+    mov dl, 0x31
+    mov [ebx], dl
+l2:
+    inc ebx
+    loop l1
+done:
+
+
+
+
+
+mov dl, 0x30
+mov [0x600000], dl
+mov dl, 0x31
+mov [0x600001], dl
+done:

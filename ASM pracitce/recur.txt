@@ -1,0 +1,62 @@
+recur: implement a recursive function
+
+   r(n) = 0, if n <= 0
+        = 1, if n == 1
+        = 2*r(n-1) + 3*r(n-2), otherwise
+
+   please call r(20) and store the result in RAX
+======
+mov rbx, 18
+call recur
+jmp exit
+recur:
+    cmp rbx, 0
+    jz set0
+    cmp rbx, 1
+    jz set1
+    push????
+    sub rbx, 1  ;   n-1
+    call recur  ;   r(n-1)
+    sub rbx, 1  ;   n-2
+    call recur  ;   r(n-2)
+set0:
+    mov rcx, 0
+    ret
+set1:
+    mov rdx, 1
+    ret
+exit:
+done:
+
+
+mov ebx, 20
+call recur
+jmp exit
+recur:
+    cmp rbx, 0
+    jz set0
+    cmp rbx, 1
+    jz set1
+    sub rbx, 1
+    push rbx
+    call recur
+    lea rcx, [rax*2]
+    pop rbx
+    sub rbx, 1
+    push rbx
+    push rcx
+    call recur
+    pop rcx
+    lea rdx, [rax*2+rax]
+    add rcx, rdx
+    mov rax, rcx
+    pop rbx
+    ret
+set0:
+    mov rax, 0
+    ret
+set1:
+    mov rax, 1
+    ret
+exit:
+done:
